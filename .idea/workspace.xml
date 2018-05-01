@@ -33,14 +33,15 @@
       <file leaf-file-name="gui.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="57" column="65" lean-forward="true" selection-start-line="57" selection-start-column="65" selection-end-line="57" selection-end-column="65" />
+            <state relative-caret-position="204">
+              <caret line="98" column="14" lean-forward="true" selection-start-line="98" selection-start-column="14" selection-end-line="98" selection-end-column="14" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
-                <element signature="e#3307#3698#0" />
                 <element signature="e#3798#9002#0" />
                 <element signature="e#9019#9543#0" />
                 <element signature="e#9631#10334#0" />
+                <element signature="e#10761#11615#0" />
+                <element signature="e#11727#12466#0" />
                 <element signature="e#11640#13192#0" />
               </folding>
             </state>
@@ -217,13 +218,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gui.py</url>
-          <line>241</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="5" />
     </breakpoint-manager>
   </component>
@@ -249,10 +243,11 @@
           <caret line="87" column="37" selection-start-line="87" selection-start-column="37" selection-end-line="87" selection-end-column="37" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
-            <element signature="e#3307#3698#0" />
             <element signature="e#3798#9002#0" />
             <element signature="e#9019#9543#0" />
             <element signature="e#9631#10334#0" />
+            <element signature="e#10761#11615#0" />
+            <element signature="e#11727#12466#0" />
             <element signature="e#11640#13192#0" />
           </folding>
         </state>
@@ -279,10 +274,11 @@
           <caret line="74" column="118" selection-start-line="74" selection-start-column="118" selection-end-line="74" selection-end-column="118" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
-            <element signature="e#3307#3698#0" />
             <element signature="e#3798#9002#0" />
             <element signature="e#9019#9543#0" />
             <element signature="e#9631#10334#0" />
+            <element signature="e#10761#11615#0" />
+            <element signature="e#11727#12466#0" />
             <element signature="e#11640#13192#0" />
           </folding>
         </state>
@@ -309,10 +305,11 @@
           <caret line="133" column="38" selection-start-line="133" selection-start-column="38" selection-end-line="133" selection-end-column="38" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
-            <element signature="e#3307#3698#0" />
             <element signature="e#3798#9002#0" />
             <element signature="e#9019#9543#0" />
             <element signature="e#9631#10334#0" />
+            <element signature="e#10761#11615#0" />
+            <element signature="e#11727#12466#0" />
             <element signature="e#11640#13192#0" />
           </folding>
         </state>
@@ -363,14 +360,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="57" column="65" lean-forward="true" selection-start-line="57" selection-start-column="65" selection-end-line="57" selection-end-column="65" />
+        <state relative-caret-position="204">
+          <caret line="98" column="14" lean-forward="true" selection-start-line="98" selection-start-column="14" selection-end-line="98" selection-end-column="14" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
-            <element signature="e#3307#3698#0" />
             <element signature="e#3798#9002#0" />
             <element signature="e#9019#9543#0" />
             <element signature="e#9631#10334#0" />
+            <element signature="e#10761#11615#0" />
+            <element signature="e#11727#12466#0" />
             <element signature="e#11640#13192#0" />
           </folding>
         </state>

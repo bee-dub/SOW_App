@@ -52,11 +52,11 @@ class GUI:
         # previous
         btn_previous = ttk.Button(grp_nav, text='<', width=btn_size)
         btn_previous.grid(row=1, column=0, sticky=tk.W, padx=(28, 0))
-        btn_previous.bind('Button-1', self.navigate_records)
+        btn_previous.bind('<Button-1>', self.navigate_records)
         # next
         btn_next = ttk.Button(grp_nav, text='>', width=btn_size)
         btn_next.grid(row=1, column=0, sticky=tk.W, padx=(56, 0))
-        btn_next.bind('Button-1', self.navigate_records)
+        btn_next.bind('<Button-1>', self.navigate_records)
         # last
         btn_last = ttk.Button(grp_nav, text='>|', width=btn_size)
         btn_last.grid(row=1, column=0, sticky=tk.W, padx=(84, 0))
@@ -98,7 +98,9 @@ class GUI:
         self.populate_treeview(db, rows, False)
         del db
 
-        self.populate_data_for_edit(1)
+        self.clear_all_data_widgets()
+        if len(rows) > 0:
+            self.populate_data_for_edit(1)
 
     def select_all_command(self):
         pass
@@ -245,32 +247,42 @@ class GUI:
             cur_row = tree.selection()[0]
             last_row = len(tree.get_children())
             if btn_text == '>':
-                if cur_row == str(last_row):
-                    itm = last_row
-                    tree.selection_set(itm)
-                else:
-                    itm = tree.next(cur_row)
-                    tree.selection_set(itm)
+                itm = last_row if cur_row == str(last_row) else tree.next(cur_row)
             elif btn_text == '<':
-                if cur_row == '1':
-                    itm = 1
-                    tree.selection_set(itm)
-                else:
-                    itm = tree.prev(cur_row)
-                    tree.selection_set(itm)
+                itm = 1 if cur_row == '1' else tree.prev(cur_row)
             elif btn_text == '>|':
-                tree.selection_set(last_row)
-                tree.yview_moveto(last_row)
                 itm = last_row
+                tree.yview_moveto(last_row)
             elif btn_text == '|<':
                 itm = 1
-                tree.selection_set(itm)
                 tree.yview_moveto(0)
+            tree.selection_set(itm)
+            self.clear_all_data_widgets()
             self.populate_data_for_edit(itm)
         except IndexError as ie:
             messagebox.showerror('Error', ie)
         except Exception as e:
             messagebox.showerror('Error', e)
+
+    def clear_all_data_widgets(self):
+        self.lbl_sno_value.config(text='')
+        self.ent_bu_code.delete(0, tk.END)
+        self.ent_sow_id.delete(0, tk.END)
+        self.ent_chc_bu.delete(0, tk.END)
+        self.ent_type.delete(0, tk.END)
+        self.ent_tower.delete(0, tk.END)
+        self.ent_sow_name.delete(0, tk.END)
+        self.ent_eng_mdl.delete(0, tk.END)
+        self.ent_sow_owner_wipro.delete(0, tk.END)
+        self.ent_sow_owner_chc.delete(0, tk.END)
+        self.ent_offshore.delete(0, tk.END)
+        self.ent_onsite.delete(0, tk.END)
+        self.ent_ttl_fte.delete(0, tk.END)
+        self.ent_sow_value.delete(0, tk.END)
+        self.ent_start_date.delete(0, tk.END)
+        self.ent_end_date.delete(0, tk.END)
+        self.ent_status.delete(0, tk.END)
+        self.txt_remarks.delete('1.0', tk.END)
 
     def populate_data_for_edit(self, iid_id):
         # add data to widgets that can hold data
