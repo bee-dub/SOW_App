@@ -23,7 +23,7 @@ class GUI:
         self.frame3.grid(row=3, column=0, sticky='we')
 
         # navigation & edit
-        self.add_nav_edit()
+        self.add_nav_new_edit()
 
         # populate master window
         self.add_buttons_labels_entries()
@@ -37,26 +37,37 @@ class GUI:
         # populate entry box for edit
         self.populate_data_for_edit(1)
 
-    def add_nav_edit(self):
+    def add_nav_new_edit(self):
         frm = self.frame0
         padx_amt = 1
         btn_size = 3
 
-        # nav
+        # Start: nav
         grp_nav = ttk.LabelFrame(frm, text='Navigate/New/Update')
         grp_nav.pack(side=tk.LEFT)
-        btn_first = ttk.Button(grp_nav, text='<|', width=btn_size)
+        # first
+        btn_first = ttk.Button(grp_nav, text='|<', width=btn_size)
         btn_first.grid(row=1, column=0, sticky=tk.W)
-        btn_first = ttk.Button(grp_nav, text='<', width=btn_size)
-        btn_first.grid(row=1, column=0, sticky=tk.W, padx=(28, 0))
-        btn_first = ttk.Button(grp_nav, text='>', width=btn_size)
-        btn_first.grid(row=1, column=0, sticky=tk.W, padx=(56, 0))
-        btn_first = ttk.Button(grp_nav, text='|>', width=btn_size)
-        btn_first.grid(row=1, column=0, sticky=tk.W, padx=(84, 0))
-        btn_save = ttk.Button(grp_nav, text='New', width=btn_size + 2)
-        btn_save.grid(row=1, column=0, sticky=tk.W, padx=(118, 0))
+        btn_first.bind('<Button-1>', self.navigate_records)
+        # previous
+        btn_previous = ttk.Button(grp_nav, text='<', width=btn_size)
+        btn_previous.grid(row=1, column=0, sticky=tk.W, padx=(28, 0))
+        btn_previous.bind('Button-1', self.navigate_records)
+        # next
+        btn_next = ttk.Button(grp_nav, text='>', width=btn_size)
+        btn_next.grid(row=1, column=0, sticky=tk.W, padx=(56, 0))
+        btn_next.bind('Button-1', self.navigate_records)
+        # last
+        btn_last = ttk.Button(grp_nav, text='>|', width=btn_size)
+        btn_last.grid(row=1, column=0, sticky=tk.W, padx=(84, 0))
+        btn_last.bind('<Button-1>', self.navigate_records)
+        # new
+        btn_new = ttk.Button(grp_nav, text='New', width=btn_size + 2)
+        btn_new.grid(row=1, column=0, sticky=tk.W, padx=(118, 0))
+        # save
         btn_save = ttk.Button(grp_nav, text='Save', width=btn_size + 2)
         btn_save.grid(row=1, column=0, sticky=tk.W, padx=(158, 0))
+        #End: nav
 
         # group box - search
         grp_box = ttk.LabelFrame(frm, text='Search')
