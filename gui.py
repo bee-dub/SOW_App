@@ -262,6 +262,7 @@ class GUI:
             messagebox.showerror('Error', e)
 
     def populate_data_for_edit(self, iid_id):
+        # add data to widgets that can hold data
         self.lbl_sno_value.config(text=self.treeview.item(iid_id)['values'][0])
         self.ent_bu_code.insert(tk.END, self.treeview.item(iid_id)['values'][1])
         self.ent_sow_id.insert(tk.END, self.treeview.item(iid_id)['values'][2])
