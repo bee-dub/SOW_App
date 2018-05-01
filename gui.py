@@ -62,10 +62,10 @@ class GUI:
         btn_last.grid(row=1, column=0, sticky=tk.W, padx=(84, 0))
         btn_last.bind('<Button-1>', self.navigate_records)
         # new
-        btn_new = ttk.Button(grp_nav, text='New', width=btn_size + 2)
+        btn_new = ttk.Button(grp_nav, text='New', width=btn_size + 2, command=self.add_new_command)
         btn_new.grid(row=1, column=0, sticky=tk.W, padx=(118, 0))
         # save
-        btn_save = ttk.Button(grp_nav, text='Save', width=btn_size + 2)
+        btn_save = ttk.Button(grp_nav, text='Save', width=btn_size + 2, command=self.save_record_command)
         btn_save.grid(row=1, column=0, sticky=tk.W, padx=(158, 0))
         #End: nav
 
@@ -104,6 +104,27 @@ class GUI:
 
     def select_all_command(self):
         pass
+
+    def update_command(self):
+        pass
+
+    def delete_command(self):
+        pass
+
+    def add_new_command(self):
+        self.clear_all_data_widgets()
+
+        db = SOW_Database()
+        db.cursor.execute('SELECT MAX(S_No) FROM sow')
+        last_id = db.cursor.fetchone()[0] + 1
+        self.lbl_sno_value.config(text=last_id)
+
+    def save_record_command(self):
+        db = SOW_Database()
+        s_no = self.lbl_sno_value.cget('text')
+        print(s_no)
+        # values = ()
+        # db.insert_record(values)
 
     def add_buttons_labels_entries(self):
         frm = self.frame1

@@ -13,25 +13,9 @@ class SOW_Database:
     def create_table(self):
         sql = \
             '''
-            create table sow(
-                S_No integer,
-                BU_Code text,
-                SOW_ID text,
-                CHC_BU text,
-                Type text,
-                Tower text,
-                SOW_Name text,
-                Engagement_Model text,
-                SOW_Owner_Wipro text,
-                SOW_Owner_CHC text,
-                Offshore integer,
-                Onsite integer,
-                Total_FTE real,
-                SOW_Value integer,
-                Start_Date date,
-                End_Date date,
-                Status text,
-                Remarks text)
+            CREATE TABLE sow(S_No integer, BU_Code text, SOW_ID text, CHC_BU text, Type text, Tower text,
+                SOW_Name text, Engagement_Model text, SOW_Owner_Wipro text, SOW_Owner_CHC text, Offshore integer,
+                Onsite integer, Total_FTE real, SOW_Value integer, Start_Date date, End_Date date, Status text, Remarks text)
             '''
         self.cursor.execute(sql)
         self.conn.commit()
@@ -71,9 +55,18 @@ class SOW_Database:
         self.conn.commit()
 
     def sow_records(self):
-        self.cursor.execute('select * from sow')
+        self.cursor.execute('SELECT * FROM sow')
         records = self.cursor.fetchall()
         return records
+
+    def update_record(self):
+        pass
+
+    def insert_record(self, *args):
+        sql = 'INSERT INTO sow VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+        values = args
+        self.cursor.execute(sql, values)
+        self.conn.commit()
 
     def search_records(self, sow_name='', sow_owner_wipro='', sow_owner_chc=''):
         if sow_name != '' or sow_owner_wipro != '' or sow_owner_chc != '':
@@ -85,30 +78,6 @@ class SOW_Database:
         records = self.cursor.fetchall()
         return records
 
-    def view_sow_data(self, tree):
 
-        # con = PlanHoursData.sqlite_connection()
-        # cur = con.cursor()
-        # cur.execute('SELECT * FROM Plan_Hours')
-        # lst = cur.fetchall()
-        db = SOW_Database()
-        lst = db.sow_records()
-
-        # add columns
-        hdr_list = []
-        for idx, row in enumerate(db.cursor.description):
-            hdr_list.append(row[0])
-        tree.config(columns=tuple(hdr_list))
-
-        # add column names
-        for i in hdr_list:
-            tree.heading(i, text=i)
-
-        # add data to columns
-        for idx, row in enumerate(lst):
-            tree.insert('', 'end', text=str(idx+1), values=tuple(row))
-
-        tree.column("#0", width=50)
-        tree.column("#1", width=75)
 
 
