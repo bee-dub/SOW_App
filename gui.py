@@ -5,6 +5,7 @@ from sow_db import SOW_Database
 class GUI:
     def __init__(self, master):
         self.master = master
+        self.pressed_new_btn = False
 
         # configure row & column
         self.master.columnconfigure(0, weight=1)
@@ -112,6 +113,7 @@ class GUI:
         pass
 
     def add_new_command(self):
+        self.pressed_new_btn = True  # variable tells the "save_record_command" function how to save record
         self.clear_all_data_widgets()
 
         db = SOW_Database()
@@ -121,10 +123,38 @@ class GUI:
 
     def save_record_command(self):
         db = SOW_Database()
+
         s_no = self.lbl_sno_value.cget('text')
-        print(s_no)
-        # values = ()
-        # db.insert_record(values)
+        bu_code = self.ent_bu_code.get()
+        sow_id = self.ent_sow_id.get()
+        chc_bu = self.ent_chc_bu.get()
+        type_ = self.ent_type.get()
+        tower = self.ent_tower.get()
+        sow_name = self.ent_sow_name.get()
+        eng_mdl = self.ent_eng_mdl.get()
+        sow_owner_wipro = self.ent_sow_owner_wipro.get()
+        sow_owner_chc = self.ent_sow_owner_chc.get()
+        offshore = self.ent_offshore.get()
+        onsite = self.ent_onsite.get()
+        ttl_fte = self.ent_ttl_fte.get()
+        sow_value = self.ent_sow_value.get()
+        start_dte = self.ent_start_date.get()
+        end_dte = self.ent_end_date.get()
+        status = self.ent_status.get()
+        remarks = self.txt_remarks.get("1.0", tk.END)
+
+        if self.pressed_new_btn:
+            values = (s_no, bu_code, sow_id, chc_bu, type_, tower, sow_name, eng_mdl, sow_owner_wipro,
+                      sow_owner_chc, offshore, onsite, ttl_fte, sow_value, start_dte, end_dte, status, remarks)
+            db.insert_record(values)
+            msg = 'Inserted record!'
+        else:
+            values = (bu_code, sow_id, chc_bu, type_, tower, sow_name, eng_mdl, sow_owner_wipro,
+                      sow_owner_chc, offshore, onsite, ttl_fte, sow_value, start_dte, end_dte, status, remarks, s_no)
+            db.update_record(values)
+            msg = 'Updated record'
+
+        messagebox.showinfo('Update database', msg)
 
     def add_buttons_labels_entries(self):
         frm = self.frame1

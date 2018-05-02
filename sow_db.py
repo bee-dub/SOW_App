@@ -59,13 +59,24 @@ class SOW_Database:
         records = self.cursor.fetchall()
         return records
 
-    def update_record(self):
-        pass
+    def delete_record(self, Id):
+        self.cursor.execute('DELETE FROM sow WHERE S_No=?', (Id, ))
+        self.conn.commit()
 
     def insert_record(self, *args):
-        sql = 'INSERT INTO sow VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
-        values = args
-        self.cursor.execute(sql, values)
+        sql = 'INSERT INTO sow VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+        self.cursor.execute(sql, *args)
+        self.conn.commit()
+
+    def update_record(self, *args):
+        sql = \
+            '''
+            UPDATE sow SET BU_Code=?, SOW_ID=?, CHC_BU=?, Type=?, Tower=?, SOW_Name=?, Engagement_Model=?,
+                SOW_Owner_Wipro=?, SOW_Owner_CHC=?, Offshore=?, Onsite=?, Total_FTE=?, SOW_Value=?, Start_Date=?, 
+                End_Date=?, Status=?, Remarks=? 
+            WHERE S_No=? 
+            '''
+        self.cursor.execute(sql, *args)
         self.conn.commit()
 
     def search_records(self, sow_name='', sow_owner_wipro='', sow_owner_chc=''):
