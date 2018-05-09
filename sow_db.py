@@ -1,5 +1,6 @@
 import sqlite3
 from openpyxl import load_workbook
+from tkinter import messagebox
 
 
 class SOW_Database:
@@ -20,47 +21,58 @@ class SOW_Database:
         self.cursor.execute(sql)
         self.conn.commit()
 
-    def import_sow_data(self):
-        qry = \
-            '''
-            insert into sow(S_No,BU_Code,SOW_ID,CHC_BU,Type,Tower,SOW_Name,Engagement_Model,SOW_Owner_Wipro,
-                SOW_Owner_CHC,Offshore,Onsite,Total_FTE,SOW_Value,Start_Date,End_Date,Status,Remarks) 
-                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-            '''
-        wb = load_workbook(r"C:\Users\esizzsx\Desktop\sow.xlsx", read_only=True)
-        ws = wb['Sheet1']
-        for row in ws.iter_rows(min_row=2):
-            s_no = row[0].value
-            bu_code = row[1].value
-            sow_id = row[2].value
-            chc_bu = row[3].value
-            type = row[4].value
-            tower = row[5].value
-            sow_name = row[6].value
-            engagement_model = row[7].value
-            sow_owner_wipro = row[8].value
-            sow_owner_chc = row[9].value
-            offshore = row[10].value
-            onsite = row[11].value
-            total_fte = row[12].value
-            sow_value = row[13].value
-            start_date = row[14].value
-            end_date = row[15].value
-            status = row[16].value
-            remarks = row[17].value
+    def import_sow_data(self, xl_file_path):
+        try:
+            qry = \
+                '''
+                INSERT INTO sow(S_No, BU_Code, SOW_ID, CHC_BU, Type, Tower, SOW_Name, Engagement_Model, SOW_Owner_Wipro,
+                    SOW_Owner_CHC, Offshore, Onsite,Total_FTE, SOW_Value, Start_Date, End_Date, Status, Remarks) 
+                    VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                '''
+            wb = load_workbook(xl_file_path, read_only=True)
+            ws = wb['Sheet1']
+            for row in ws.iter_rows(min_row=2):
+                s_no = row[0].value
+                bu_code = row[1].value
+                sow_id = row[2].value
+                chc_bu = row[3].value
+                type = row[4].value
+                tower = row[5].value
+                sow_name = row[6].value
+                engagement_model = row[7].value
+                sow_owner_wipro = row[8].value
+                sow_owner_chc = row[9].value
+                offshore = row[10].value
+                onsite = row[11].value
+                total_fte = row[12].value
+                sow_value = row[13].value
+                start_date = row[14].value
+                end_date = row[15].value
+                status = row[16].value
+                remarks = row[17].value
 
-            values = (s_no, bu_code, sow_id, chc_bu, type, tower, sow_name, engagement_model, sow_owner_wipro,
-                      sow_owner_chc, offshore, onsite, total_fte, sow_value, start_date, end_date, status, remarks)
-            self.cursor.execute(qry, values)
-        self.conn.commit()
+                values = (s_no, bu_code, sow_id, chc_bu, type, tower, sow_name, engagement_model, sow_owner_wipro,
+                          sow_owner_chc, offshore, onsite, total_fte, sow_value, start_date, end_date, status, remarks)
+                self.cursor.execute(qry, values)
+            self.conn.commit()
+            messagebox.showinfo('Import Data', 'Done! Data have been imported to into database.')
+        except sqlite3.IntegrityError:
+            messagebox.showerror('Integrity Error', "Can't load duplicate of S.No into database. Records has to be unique.")
+        except Exception as e:
+            messagebox.showerror("Error", e)
 
     def sow_records(self):
         self.cursor.execute('SELECT * FROM sow')
         records = self.cursor.fetchall()
         return records
 
-    def delete_record(self, Id):
-        self.cursor.execute('DELETE FROM sow WHERE S_No=?', (Id, ))
+    def sow_record_max_id(self):
+        self.cursor.execute('SELECT max(S_No) FROM sow')
+        max_id = self.cursor.fetchone()[0]
+        return max_id
+
+    def delete_record(self, id):
+        self.cursor.execute('DELETE FROM sow WHERE S_No=?', (id, ))
         self.conn.commit()
 
     def insert_record(self, *args):
